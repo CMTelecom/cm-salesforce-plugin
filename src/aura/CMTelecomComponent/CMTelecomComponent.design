@@ -1,0 +1,4 @@
+<design:component >
+	<design:attribute name="field" label="The phone field to read."/>
+	<design:attribute name="origin" label="Where the message is send from. (i.e. Contact Page)."/>
+</design:component>

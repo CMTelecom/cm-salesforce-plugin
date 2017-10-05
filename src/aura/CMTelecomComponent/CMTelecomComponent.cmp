@@ -1,0 +1,67 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" 
+	access="global"
+	controller="CMTelecomComponentController" 
+    extensible="true">
+	<aura:attribute name="field" type="String" access="global"/>
+	<aura:attribute name="loading" type="String" access="global"/>
+	<aura:attribute name="origin" type="String" access="global"/>
+    
+    <aura:attribute name="inputSender" type="String" access="global" />
+    <aura:attribute name="inputOtherSender" type="String" access="global"/>
+    <aura:attribute name="inputReceiver" type="String" access="global"/>
+    <aura:attribute name="inputMessage" type="String" access="global"/>
+    
+    <aura:attribute name="outputWarningShow" type="Boolean" access="global"/>
+    <aura:attribute name="outputWarningMessage" type="String" access="global"/>
+    <aura:attribute name="outputSender" type="String" access="global"/>
+    
+    <aura:dependency resource="markup://force:editRecord" type="EVENT" />
+    <aura:handler event="force:refreshView" action="{!c.doInit}" />
+    
+	
+	<aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    <div class="slds-is-relative">
+
+        
+        <div class="{!v.loading}">
+            <form class="slds-form">
+                <div class="slds-text-heading--large">Send SMS</div>
+                <div class="slds-form-element">
+                    <div class="slds-form-element__control">
+						<ui:inputSelect aura:id="sender" label="Sender" class="dynamic" required="true" value="{!v.outputSender}">
+                            <aura:iteration items="{!v.inputSender.items}" var="sender">
+                            	<ui:inputSelectOption text="{!sender.value}" label="{!sender.label}" />
+                            </aura:iteration>
+                        </ui:inputSelect>
+                        <aura:if isTrue="{!v.outputSender == 'Other'}">
+                    		<ui:inputText aura:id="other-sender" label="Other sender" value="{!v.inputOtherSender}" required="true"/>
+                		</aura:if>
+						
+                    </div>
+                </div>
+                <div class="slds-form-element">
+                    <div class="slds-form-element__control">
+                    	<ui:inputText aura:id="receiver" label="Receiver" value="{!v.inputReceiver}" required="true"/>
+                    </div>
+                </div>
+                <div class="slds-form-element">
+                    <div class="slds-form-element__control">
+						<ui:inputTextArea aura:id="message" label="Message" value="{!v.inputMessage}" required="true" rows="5"/>
+                    </div>
+                </div>
+                
+                <aura:if isTrue="{!v.outputWarningShow}">
+                    <ui:message title="Error" severity="error" closable="true">{!v.outputWarningMessage}</ui:message>
+                </aura:if>
+                
+                <div class="slds-form-element slds-clearfix">
+                    <ui:button class="slds-button slds-button--brand slds-float--right" label="Send" press="{!c.doSendMessage}"/>
+                </div>
+            </form>
+            
+            
+
+            <lightning:spinner variant="brand" size="medium" class="loading-spinner"/>
+        </div>
+    </div>
+</aura:component>
