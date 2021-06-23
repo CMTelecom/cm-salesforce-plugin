@@ -593,24 +593,24 @@ global without sharing class CMTelecomAPIConsumer {
 	    * @description A defining message that has been given back.
 	    */
 		@AuraEnabled
-		public String details {get; set;}
+		global String details {get; set;}
 
 		/**
 	    * @description The errorCode that has been given back.
 	    */
 		@AuraEnabled
-		public Integer errorCode {get; set;}
+		global Integer errorCode {get; set;}
 
 		/**
 	    * @description The statuscode that has been given back.
 	    */
 		@AuraEnabled
-		public Integer statusCode {get; set;}
+		global Integer statusCode {get; set;}
 
 		/**
 	    * private, serialize property
 	    */
-		private List<ResponseMessage> messages {get; set;}
+		global List<ResponseMessage> messages {get; set;}
 
 		/**
 	    * @description The input data used to generate the response
@@ -643,11 +643,11 @@ global without sharing class CMTelecomAPIConsumer {
 	* private, serialize class
 	*/
 	global class ResponseMessage {
-		public String to {get; set;}
-		public String status {get; set;}
-		public String reference {get; set;}
-		public Integer parts {get; set;}
-		public String messageDetails {get; set;}
-		public Integer messageErrorCode {get; set;}
+		global String to {get; set;}
+		global String status {get; set;}
+		global String reference {get; set;}
+		global Integer parts {get; set;}
+		global String messageDetails {get; set;}
+		global Integer messageErrorCode {get; set;}
 	}
 }
